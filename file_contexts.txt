@@ -1,1 +1,1 @@
-system_u:object_r:default_t:s0 /data/mephi-web
+system_u:object_r:httpd_sys_content_t:s0 /data/mephi-web
