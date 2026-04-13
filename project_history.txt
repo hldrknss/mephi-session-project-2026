@@ -1,0 +1,90 @@
+    1  mkdir -p /home/dir-m255963
+    2  groupadd project
+    3  useradd -u 5501 -m -s /bin/bash -G project user1
+    4  useradd -u 5502 -m -s /bin/bash -G project user2
+    5  useradd -u 5503 -m -s /bin/bash -G project user3
+    6  group add -g 4444 curators
+    7  groupadd -g 4444 curators
+    8  useradd -m -s /bin/bash -G curators curator1
+    9  useradd -m -s /bin/bash -G curators curator2
+   10  chown root:project /home/dir-m255963
+   11  chmod 2770 /home/dir-m255963
+   12  setfac1 -m u:curator1:rx,u:curator2:rx /home/dir-m255963
+   13  setfacl -m u:curator1:rx,u:curator2:rx /home/dir-m255963
+   14  setfacl -d -m u:curator1:rx,u:curator2:rx /home/dir-m255963
+   15  ls -ld /home/dir-m255963
+   16  getfacl /home/dir-m255963
+   17  su - user1
+   18  su - user2
+   19  su - curator1
+   20  useradd testuser
+   21  su - testuser
+   22  userdel -r testuser
+   23  history | ggrep -E '(useradd|groupadd|mkdir|chmod|chown|setfacl)' > report_commands.txt
+   24  history | grep -E '(useradd|groupadd|mkdir|chmod|chown|setfacl)' > report_commands.txt
+   25  cat /etc/passwd >> report.txt
+   26  cat /etc/group >> report.txt
+   27  cat report_commands.txt > report.txt
+   28  echo '' >> report.txt
+   29  echo '/etc/passwd' >> report.txt
+   30  cat /etc/passwd >> report.txt
+   31  echo '' >> report.txt
+   32  echo '/etc/group' >> report.txt
+   33  cat /etc/group >> report.txt
+   34  less report.txt
+   35  pwd
+   36  ls -l report.txt
+   37  sudo dnf update -y
+   38  ping -c 4 192.168.1.1
+   39  sudo ip addr add 192.168.1.2/24 dev enpos3
+   40  sudo ip addr add 192.168.1.2/24 dev enp0s3
+   41  sudo ip link set enp0s3 up
+   42  ip a
+   43  ip addr show enp0s3
+   44  ping -c 4 192.168.1.1
+   45  arp -a
+   46  ping -c 4 192.168.1.2
+   47  ping -c 2 192.168.1.1
+   48  arp -n
+   49  sudo ip addr flush dev enp0s3
+   50  sudo ip addr add 192.168.1.10/24 dev enp0s3
+   51  sudo ip link set enp0s3 up
+   52  ping -c 2 192.168.1.1
+   53  ping -c 2 192.168.1.10
+   54  ping -c 3 192.168.1.1
+   55  ip neigh show dev enp0s3
+   56  ping -c 3 192.168.1.1
+   57  lsblk
+   58  parted /dev/sdb mklabel msdos
+   59  parted /dev/sdb mkpart primary ext4 1mib 100%
+   60  mkfs.ext4 -L MEPHI_DATA /dev/sdb1
+   61  mkdor -p /data/mephi-web
+   62  mkdir -p /data/mephi-web
+   63  LABEL=MEPHI_DATA /data/mephi-web ext4 defaults 0 2
+   64  echo 'LABEL=MEPHI_DATA /data/mephi-web ext4 defaults 0 2' >> /etc/fstab
+   65  mount /data/mephi-web
+   66  df -h /data/mephi-web
+   67  systemctl daemon-reload
+   68  df -h /data/mephi-web
+   69  systemctl start nginx
+   70  systemctl enable nginx
+   71  systemctl status nginx
+   72  journalctl -u nginx --since '5minutes ago' > /tmp/nginx_recent-logs.txt
+   73  useradd mephi-admin
+   74  groupadd mephi-devs
+   75  usermod -aG mephi-devs mephi-admin
+   76  echo 'P@ssw0rd2026' | passwd --stdin mephi-admin
+   77  chown mephi-admin:mephi-devs /data/mephi-web
+   78  chmod 2775 /data/mephi-web
+   79  getenforce
+   80  semanage fcontext -a -t httpd_sys_content_t '/data/mephi_web(/.*)?'
+   81  restorecon -Rv /data/mephi-web
+   82  getcap /usr/sbin/tcpdump
+   83  chmod u-s /usr/sbin/tcpdump
+   84  setcap cap_net_raw,cap_net_admin+ep /usr/sbin/tcpdump
+   85  sudo -u mephi-admin tcpdump --help
+   86  echo 'root' >> /etc/ssh/denied_users
+   87  sed -i '1 i auth    required    pam_listfile.so onerr=fail item=user sense=deny file=/etc/ssh/denied_users' /etc/pam.d/sshd
+   88  sed -i '1 i auth    required    pam_listfile.so onerr=fail item=user sense=deny file=/etc/ssh/denied_users' /etc/pam.d/login
+   89  su - mephi-admin
+   90  history > ~/project_history.txt
