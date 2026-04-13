@@ -73,7 +73,7 @@
    73  useradd mephi-admin
    74  groupadd mephi-devs
    75  usermod -aG mephi-devs mephi-admin
-   76  echo 'P@ssw0rd2026' | passwd --stdin mephi-admin
+   76  echo '***' | passwd --stdin mephi-admin
    77  chown mephi-admin:mephi-devs /data/mephi-web
    78  chmod 2775 /data/mephi-web
    79  getenforce
